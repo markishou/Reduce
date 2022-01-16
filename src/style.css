@@ -1,26 +1,41 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;900&family=Open+Sans&display=swap");
 
 
-body, h1, h2 {
+body, h1, h2, h3, p{
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
+    text-align: center;
+    color: #1F2426;
 
+}
+
+body {
+    background-color: #828C6D;
+}
+
+/* Specific */
+.bold {
+    font-weight: bold;
 }
 
 /* headers */
 .header {
-    padding: 2% 5%;
+    padding: 2% 5% 0;
     text-align: center;
-}
-
-/* Center Elements */
-.center {
-    text-align: center;
+    font-weight: 600;
 }
 
 /* Title */
 .title-caption {
     font-style: italic;
+    text-align: center;
+}
+
+.how-to {
+    width: 55%;
+    text-align: center;
+    margin: 1% auto 2%;
+
 }
 
 /* Change Size Container */
@@ -32,3 +47,15 @@ body, h1, h2 {
     margin-right: 2%;
 }
 
+.changeSizeButton {
+    caret-color: transparent;
+}
+
+.sizeForm {
+    text-align: center;
+}
+
+/* Matrix */
+.matrix {
+    margin-top: 5px;
+}
