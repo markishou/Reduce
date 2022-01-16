@@ -4,10 +4,12 @@ function App() {
   //setting fields
   const [matSize, setSize] = useState(3);
   var matrix = [];
+  console.log(matrix);
 
   // initialize matrix input
   const rows = [];
-  var renderedRows = [];
+
+  const reducedMat = [];
 
   // Configures input for a matrix (2d Array)
   for (let i = 0; i < matSize; i++) {
@@ -25,6 +27,24 @@ function App() {
 
   // Converts user matrix input into array
   function makeMatrixArr() {
+    matrix = [];
+    for (let i = 0; i < matSize; i++) {
+      var matrixCol = [];
+      for (let j = 0; j <= matSize; j++) {
+        var entryId = String(i) + String(j);
+        var matEntry = document.getElementById(entryId).value;
+        matrixCol.push(parseInt(matEntry));
+      }
+      matrix.push(matrixCol);
+    }
+    renderMatrix();
+    console.log(matrix);
+  }
+
+
+  // Converts user matrix input into array
+  function makeMatrixArr() {
+    matrix = [];
     for (let i = 0; i < matSize; i++) {
       var matrixCol = [];
       for (let j = 0; j <= matSize; j++) {
@@ -58,26 +78,55 @@ function App() {
       }
 
       // swap the current row with the row with the largest pivot
-      if (max_pivot != i) {
+      if (max_row != i) {
         var temp = matrix[i];
         matrix[i] = matrix[max_row];
         matrix[max_row] = temp;
       }
 
       // go through each row, perform row operations to have all entries below pivot have a 0 entry
-      for (let k = i + 2; k < matSize; k++) {
+      for (let k = i + 1; k < matSize; k++) {
         // find ratio that reduces col entry to 0
-        var ratio = matrix[k][i] / parseFloat(matrix[i][i]);
+        var ratio = parseFloat(matrix[k][i]) / matrix[i][i];
+        
 
         // subtract ratio multiple of corresponding column element from curr i in curr k
-        for (let currCol = i + 2; currCol <= matSize; k++) {
+        for (let currCol = i + 1; currCol <= matSize; currCol++) {
           matrix[k][currCol] -= ratio * matrix[i][currCol];
         }
+        matrix[k][i] = 0;
       }
-      console.log(matrix);
-      return matrix;
+
+      // reduce all entries in row with pivot so pivot is 1
+      var reducingRatio = 1.0 / matrix[i][i];
+      for (let currCol = i; i <= matSize; currCol++) {
+        matrix[i][currCol] = reducingRatio * matrix[i][currCol];
+      }
     }
+    console.log(matrix);
   }
+  
+  // if (matrix !== undefined || matrix.length > 0) {
+  //   for (let i = 1; i < matSize; i++) {
+  //     var matrixColumn = [];
+  
+  //     for (let j = 1; j <= matSize; j++) {
+  //       let x = matrix[i][j]
+  //       matrixColumn.push(
+  //         <span>
+  //           <button>
+  //             toString(x);
+  //           </button>
+  //         </span>
+  //         );
+  //         console.log(matrix[i][j])
+  //     }
+  //     // reducedMat.push(<div>{matrixColumn}</div>);
+  //   }
+  // }
+  
+
+  
 
   return (
     <div>
@@ -93,8 +142,9 @@ function App() {
           to reduce your matrix for you! Simply input the size "n" to display an
           NxN matrix and fill in the entries!
           <br></br>
-          (Sorry, bootstrap doesn't allow sizing past 23{" "}
-          <span class="bold">O_O</span>)
+          (Note, size of the matrix will only fit up to your display.{" "}
+          Check console to find reduced matrix.
+          <span class="bold">Sorry O_O</span>)
         </p>
         <div className="input-header container-fluid center">
           <form className="sizeForm">
@@ -117,9 +167,10 @@ function App() {
             onClick={makeMatrixArr}
           ></input>
         </div>
+        
       </div>
-
-      <div className="container reduced-matrix">{renderedRows}</div>
+      <div className="ui segment">
+      </div>
     </div>
   );
 }
