@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;900&family=Open+Sans&display=swap");
+
+
+body, h1, h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+
+}
+
+/* headers */
+.header {
+    padding: 2% 5%;
+    text-align: center;
+}
+
+/* Center Elements */
+.center {
+    text-align: center;
+}
+
+/* Change Size Container */
+.changeSizeField {
+    display: inline-block;
+}
+
+#sizeQuestion {
+    margin-right: 2%;
+}
+
