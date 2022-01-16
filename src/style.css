@@ -18,6 +18,11 @@ body, h1, h2 {
     text-align: center;
 }
 
+/* Title */
+.title-caption {
+    font-style: italic;
+}
+
 /* Change Size Container */
 .changeSizeField {
     display: inline-block;
