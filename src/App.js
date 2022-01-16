@@ -99,7 +99,7 @@ function App() {
           NxN matrix and fill in the entries!
           <br></br>
           (Note, size of the matrix will only fit up to your display.{" "}
-          Check console to find reduced matrix.
+          
           <span className="bold">Sorry O_O</span>)
         </p>
         <div className="input-header container-fluid center">

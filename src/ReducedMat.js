@@ -22,7 +22,7 @@ function ReducedMat({ matrix }) {
 
   return (
     <div className="ui segment">
-      <div className="container">{reducedMat}</div>
+      <div className="container">{matrix.length == 0 ? "To Be Reduced" : reducedMat}</div>
     </div>
   );
 }
