@@ -1,15 +1,15 @@
 import React, { useState } from "react";
+import ReducedMat from "./ReducedMat";
 
 function App() {
   //setting fields
   const [matSize, setSize] = useState(3);
-  var matrix = [];
-  console.log(matrix);
+  const [matrix, setMatrix] = useState([])
 
   // initialize matrix input
   const rows = [];
 
-  const reducedMat = [];
+
 
   // Configures input for a matrix (2d Array)
   for (let i = 0; i < matSize; i++) {
@@ -18,7 +18,7 @@ function App() {
       var entryId = String(i) + String(j);
       matrixCol.push(
         <span>
-          <input className="grid-input" type="text" id={entryId} size="4" />
+          <input className="grid-input" type="text" key={entryId} id={entryId} size="4" />
         </span>
       );
     }
@@ -27,7 +27,7 @@ function App() {
 
   // Converts user matrix input into array
   function makeMatrixArr() {
-    matrix = [];
+    var mat = [];
     for (let i = 0; i < matSize; i++) {
       var matrixCol = [];
       for (let j = 0; j <= matSize; j++) {
@@ -35,31 +35,14 @@ function App() {
         var matEntry = document.getElementById(entryId).value;
         matrixCol.push(parseInt(matEntry));
       }
-      matrix.push(matrixCol);
+      mat.push(matrixCol);
     }
-    renderMatrix();
-    console.log(matrix);
-  }
-
-
-  // Converts user matrix input into array
-  function makeMatrixArr() {
-    matrix = [];
-    for (let i = 0; i < matSize; i++) {
-      var matrixCol = [];
-      for (let j = 0; j <= matSize; j++) {
-        var entryId = String(i) + String(j);
-        var matEntry = document.getElementById(entryId).value;
-        matrixCol.push(parseInt(matEntry));
-      }
-      matrix.push(matrixCol);
-    }
-    renderMatrix();
+    renderMatrix(mat);
     console.log(matrix);
   }
 
   //TODO: render new matrix in reduced form
-  function renderMatrix() {
+  function renderMatrix(matrix) {
     for (let i = 0; i < matSize; i++) {
       // find the largest row index to use for pivot
       var max_row = i;
@@ -96,36 +79,9 @@ function App() {
         }
         matrix[k][i] = 0;
       }
-
-      // reduce all entries in row with pivot so pivot is 1
-      var reducingRatio = 1.0 / matrix[i][i];
-      for (let currCol = i; i <= matSize; currCol++) {
-        matrix[i][currCol] = reducingRatio * matrix[i][currCol];
-      }
     }
-    console.log(matrix);
+    setMatrix(matrix);
   }
-  
-  // if (matrix !== undefined || matrix.length > 0) {
-  //   for (let i = 1; i < matSize; i++) {
-  //     var matrixColumn = [];
-  
-  //     for (let j = 1; j <= matSize; j++) {
-  //       let x = matrix[i][j]
-  //       matrixColumn.push(
-  //         <span>
-  //           <button>
-  //             toString(x);
-  //           </button>
-  //         </span>
-  //         );
-  //         console.log(matrix[i][j])
-  //     }
-  //     // reducedMat.push(<div>{matrixColumn}</div>);
-  //   }
-  // }
-  
-
   
 
   return (
@@ -144,7 +100,7 @@ function App() {
           <br></br>
           (Note, size of the matrix will only fit up to your display.{" "}
           Check console to find reduced matrix.
-          <span class="bold">Sorry O_O</span>)
+          <span className="bold">Sorry O_O</span>)
         </p>
         <div className="input-header container-fluid center">
           <form className="sizeForm">
@@ -155,6 +111,7 @@ function App() {
               onClick={(e) =>
                 setSize(document.getElementById("sizeChange").value)
               }
+              readOnly
               value="Set Matrix Size"
             ></input>
           </form>
@@ -164,13 +121,13 @@ function App() {
           <input
             className="btn btn-dark btn-xl changeSizeButton reduce-margin"
             value="Reduce Matrix!"
+            readOnly
             onClick={makeMatrixArr}
           ></input>
         </div>
         
       </div>
-      <div className="ui segment">
-      </div>
+      <ReducedMat matrix={matrix}/>
     </div>
   );
 }
