@@ -4,12 +4,15 @@ function App() {
   // setting background colour 
   document.body.style = "background: #828C6D;";
   
-  //setting size field
+  //setting fields
   const [size, setSize] = useState(3);
+  var matrix = new Array();
+
 
 
   // initialize matrix input
   const rows = new Array();
+  const renderedRows = new Array();
 
   // Configures input for a matrix (2d Array)
   for (let i = 0; i < size; i++) {
@@ -24,9 +27,25 @@ function App() {
     rows.push(<div>{matrixCol}</div>); 
   }
 
-  // TODO: convert input to js matrix we can use to apply algo on
+  
   function makeMatrix() {
+    for (let i = 0; i < size; i++) {
+      var matrixCol = new Array();
+      for (let j = 0; j <= size; j++) {
+        var entryId = String(i) + String(j);
+        var matrEntry = document.getElementById(entryId).value;
+        matrixCol.push(parseInt(matrEntry));
+      }
+      matrix.push(matrixCol);
+    }
+    renderedRows = renderMatrix(matrix);
+    console.log(matrix);
+  }
 
+  //TODO: render new matrix in reduced form 
+  function renderMatrix(arr) {
+    
+    return new Array();
   }
   
   return (
@@ -62,6 +81,9 @@ function App() {
         {rows}
         <input className="btn btn-dark btn-xl changeSizeButton" value="Reduce Matrix!"
         onClick={makeMatrix}></input>
+      </div>
+      <div className="container reduced-matrix">
+        {renderedRows}
       </div>
     </div>
   );
